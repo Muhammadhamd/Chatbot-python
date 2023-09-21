@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+<body class="flex justify-center">
+    <div class=" w-[500px] max-w-[500px] shadow border h-[600px]">
+        <div class="h-[500px] overflow-y-scroll" id="chatbox">
+            <div  class="flex justify-end">
+                <div class="max-w-[350px] bg-[#F5F5F5] rounded-lg p-[20px] m-[5px]">
+                    What is your name?
+                </div>
+            </div>
+            <div class="flex justify-start">
+                <div class="max-w-[350px] bg-[blue] text-white rounded-lg p-[20px] m-[5px]">my name is muhammad hamd</div>
+            </div>
+           
+        </div>
+        <form id="send">
+            <input type="text" id="messege">
+            <input type="submit">
+        </form>
+    </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById("send").addEventListener("submit",(e)=>{
+            e.preventDefault()
+            document.getElementById('chatbox').innerHTML += ` <div  class="flex justify-end">
+                <div class="max-w-[350px] bg-[#F5F5F5] rounded-lg p-[20px] m-[5px]">
+                    ${document.getElementById("messege").value}
+                </div>
+            </div>`
+            axios.post("/sendmsg",{
+            message:document.getElementById("messege").value
+            
+        })
+        .then((res)=>{
+            console.log(res.data.aiResponse)
+            document.getElementById('chatbox').innerHTML += ` <div class="flex justify-start">
+                <div class="max-w-[350px] bg-[blue] text-white rounded-lg p-[20px] m-[5px]">${res.data.aiResponse}</div>
+            </div>`
+            
+        })
+        .catch((e)=>{
+            console.log(e)
+        })
+
+        })
+       
+    </script>
+</body>
+</html>
