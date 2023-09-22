@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 // Configure your OpenAI API key
-const apiKey = "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";
+const apiKey = "";
 const openai = new OpenAI({ apiKey });
 
 app.post('/sendmsg', async (req, res) => {
